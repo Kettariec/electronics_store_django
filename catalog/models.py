@@ -1,4 +1,6 @@
 from django.db import models
+import psycopg2
+from django.db import connection
 
 
 class Product(models.Model):
@@ -14,6 +16,15 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.product_name}'
 
+    @classmethod
+    def truncate_table_restart_id(cls):
+        """Метод для обнуления счетчика автоинкремента"""
+        with connection.cursor() as cur:
+            try:
+                cur.execute(f'TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE')
+            except psycopg2.errors.Error as e:
+                raise e
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
@@ -28,6 +39,15 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.category_name}'
+
+    @classmethod
+    def truncate_table_restart_id(cls):
+        """Метод для обнуления счетчика автоинкремента"""
+        with connection.cursor() as cur:
+            try:
+                cur.execute(f'TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE')
+            except psycopg2.errors.Error as e:
+                raise e
 
     class Meta:
         verbose_name = 'Категория'
