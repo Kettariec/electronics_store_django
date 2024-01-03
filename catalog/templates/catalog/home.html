@@ -7,26 +7,6 @@
     <p class="lead">E-Store - это интерактивный магазин электроники</p>
 </div>
 
-<div class="container">
-    <div class="row text-center">
-        {% for object in object_list %}
-        <div class="col-3">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ object }}</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$ 999</h1>
-                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>- Неограниченная лицензия</li>
-                        <li>- Поддержка</li>
-                        <li>- Установка на сервер</li>
-                        <li>- Получение обновлений</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    {% endblock %}
+{% include 'catalog/includes/inc_products.html' %}
+
+{% endblock %}
