@@ -3,6 +3,7 @@ from catalog.models import Product
 
 
 def home(request):
+    """Контроллер домашней страницы"""
     product_list = Product.objects.all()
     context = {
         'object_list': product_list,
@@ -12,6 +13,7 @@ def home(request):
 
 
 def contacts(request):
+    """Контроллер страницы контактов"""
     if request.method == 'POST':
         # в переменной request хранится информация о методе, который отправлял пользователь
         name = request.POST.get('name')
