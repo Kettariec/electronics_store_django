@@ -22,6 +22,16 @@ def contacts(request):
         # а также передается информация, которую заполнил пользователь
         print(name, phone, message)
     context = {
-        'title': 'Контакты'
+        'title': 'Contacts'
     }
     return render(request, 'catalog/contacts.html', context)
+
+
+def product_card(request):
+    """Контроллер карточки товара"""
+    product_list = Product.objects.all()
+    context = {
+        'object_list': product_list,
+        'title': 'Product Card'
+    }
+    return render(request, 'catalog/product_card.html', context)
