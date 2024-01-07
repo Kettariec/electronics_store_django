@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from blog.models import Blog
 from pytils.translit import slugify
@@ -55,3 +56,13 @@ class BlogDetailView(DetailView):
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:list')
+
+
+def toggle_activity(request, pk):
+    dog_item = get_object_or_404(Blog, pk=pk)
+    if dog_item.is_published:
+        dog_item.is_published = False
+    else:
+        dog_item.is_published = True
+    dog_item.save()
+    return redirect(reverse('blog:list'))
