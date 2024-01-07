@@ -7,6 +7,7 @@
 </div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for object in object_list %}
+    {% if object.is_published %}
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
         Материал {{ object|title }} <br>
@@ -24,6 +25,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
