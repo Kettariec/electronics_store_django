@@ -8,12 +8,12 @@ class ProductListView(ListView):
     """Контроллер главной страницы"""
     model = Product
     template_name = 'catalog/home.html'
-    def get_queryset(self, *args, **kwargs):
-        """Отображение только 5 последних добавленных товаров"""
-        queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.all()
-        queryset = list(reversed(queryset))
-        return queryset[:5]
+    # def get_queryset(self, *args, **kwargs):
+    #     """Отображение только 5 последних добавленных товаров"""
+    #     queryset = super().get_queryset(*args, **kwargs)
+    #     queryset = queryset.all()
+    #     queryset = list(reversed(queryset))
+    #     return queryset[:5]
 # def home(request):
 #     """Контроллер домашней страницы"""
 #     product_list = Product.objects.all()
