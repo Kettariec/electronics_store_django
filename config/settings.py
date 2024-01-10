@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 
 pass_bd = os.getenv('pass_bd')
+pass_yandex = os.getenv('Yandex_app')
+user_yandex = os.getenv('mail_yandex')
 
 FILE = 'data.json'
 
@@ -141,3 +143,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # JSON file
 DATA = os.path.join(BASE_DIR, FILE)
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = user_yandex
+EMAIL_HOST_PASSWORD = pass_yandex
+EMAIL_SERVER = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER

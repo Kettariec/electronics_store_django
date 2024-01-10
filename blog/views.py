@@ -3,6 +3,8 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from blog.models import Blog
 from pytils.translit import slugify
+from django.core.mail import send_mail
+from config.settings import EMAIL_HOST_USER
 
 
 class BlogCreateView(CreateView):
@@ -49,6 +51,13 @@ class BlogDetailView(DetailView):
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         self.object.views_count += 1
+        if self.object.views_count == 100:
+            send_mail(
+                'Ты популярен!!!',
+                'Ты набрал 100 просмотров!!!',
+                EMAIL_HOST_USER,
+                ['kettariec@gmail.com']
+            )
         self.object.save()
         return self.object
 
