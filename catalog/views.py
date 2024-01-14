@@ -2,6 +2,8 @@ from django.shortcuts import render
 from catalog.models import Product
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from config.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
 
 
 class ProductListView(ListView):
@@ -33,6 +35,12 @@ def contacts(request):
         message = request.POST.get('message')
         # а также передается информация, которую заполнил пользователь
         print(name, phone, message)
+        send_mail(
+            'Сообщение от пользователя',
+            f'Пользователь:{name}\nТелефон:{phone}\nСообщение:{message}',
+            EMAIL_HOST_USER,
+            ['kettariec@gmail.com']
+        )
     context = {
         'title': 'Contacts'
     }
