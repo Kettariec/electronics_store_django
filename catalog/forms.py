@@ -17,7 +17,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         # fields = ('', '',)
         # exclude = ('', '',) - исключить поля
 
-    def clean_name(self):
+    def clean_product_name(self):
         """Валидация поля name по запрещенным словам"""
         cleaned_data = self.cleaned_data.get('product_name')
         forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа',
@@ -28,7 +28,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
         return cleaned_data
 
-    def clean_description(self):
+    def clean_product_description(self):
         """Валидация поля description по запрещенным словам"""
         cleaned_data = self.cleaned_data.get('product_description')
         forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа',
