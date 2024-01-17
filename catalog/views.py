@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from catalog.models import Product
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from config.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
+from catalog.forms import ProductForm
 
 
 class ProductListView(ListView):
@@ -66,15 +67,17 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     """Контроллер страницы добавления товара от пользователя"""
     model = Product
-    fields = ('product_name', 'product_description', 'product_image',
-              'product_category', 'product_price', 'product_date_of_creation', 'product_date_of_change',)
+    form_class = ProductForm
+    # fields = ('product_name', 'product_description', 'product_image',
+    #           'product_category', 'product_price', 'product_date_of_creation', 'product_date_of_change',)
     success_url = reverse_lazy('catalog:home')
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ('product_name', 'product_description', 'product_image',
-              'product_category', 'product_price', 'product_date_of_creation', 'product_date_of_change',)
+    form_class = ProductForm
+    # fields = ('product_name', 'product_description', 'product_image',
+    #           'product_category', 'product_price', 'product_date_of_creation', 'product_date_of_change',)
     success_url = reverse_lazy('catalog:home')
 
 
