@@ -27,6 +27,13 @@
                 class="btn btn-sm btn-outline-secondary">Удалить</a>
 
             </div>
+                    <div class="card-footer">
+                    {% for version in object.version_set.all %}
+                        {% if version.is_active %}
+                        Версия: {{ version.name }}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,6 +16,13 @@
                     <a href="{% url 'catalog:product_card' object.pk %}">
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button>
                     </a>
+                    <div class="card-footer">
+                        {% for version in object.version_set.all %}
+                        {% if version.is_active %}
+                        Версия: {{ version.name }}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
