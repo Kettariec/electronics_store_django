@@ -3,17 +3,20 @@ import psycopg2
 from django.db import connection
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from config.settings import AUTH_USER_MODEL
 
 
 class Product(models.Model):
     product_name = models.CharField(max_length=100, verbose_name='Наименование')
     product_description = models.TextField(verbose_name='Описание продукта')
-    product_image =  models.ImageField(upload_to='products/', verbose_name='Изображение',
-                                       null=True, blank=True) # может быть null или незаполненным
+    product_image = models.ImageField(upload_to='products/', verbose_name='Изображение',
+                                      null=True, blank=True) # может быть null или незаполненным
     product_category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
     product_price = models.IntegerField(verbose_name='Цена')
     product_date_of_creation = models.DateField(verbose_name='Дата создания')
     product_date_of_change = models.DateField(verbose_name='Дата изменения')
+    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL,
+                               null=True, blank=True, verbose_name='Кем создан')
 
     def __str__(self):
         return f'{self.product_name}'

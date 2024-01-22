@@ -6,6 +6,8 @@ from config.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from catalog.forms import ProductForm, VersionForm
 from django.forms import inlineformset_factory
+from users.service import check_user
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class ProductListView(ListView):
@@ -74,12 +76,27 @@ class ProductCreateView(CreateView):
 
     success_url = reverse_lazy('catalog:home')
 
+    def form_valid(self, form):
+        """Добавление автора к товару"""
+        self.object = form.save()
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(UserPassesTestMixin, UpdateView):
+    """Контроллер страницы редактирования товара"""
     model = Product
     form_class = ProductForm
     # fields = ('product_name', 'product_description', 'product_image',
     #           'product_category', 'product_price', 'product_date_of_creation', 'product_date_of_change',)
+
+    def test_func(self):
+        user = self.request.user
+        author = self.get_object().author
+        if check_user(user, author):
+            return True
+        return self.handle_no_permission()
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -104,6 +121,11 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(UserPassesTestMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
+
+    def test_func(self):
+        if self.request.user == self.get_object().author or self.request.user.is_superuser is True:
+            return True
+        return self.handle_no_permission()

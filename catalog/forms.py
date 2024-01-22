@@ -13,8 +13,9 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
-        # fields = ('', '',)
+        # fields = '__all__'
+        fields = ('product_name', 'product_description', 'product_image',
+                  'product_category', 'product_price', 'product_date_of_creation', 'product_date_of_change',)
         # exclude = ('', '',) - исключить поля
 
     def clean_product_name(self):
