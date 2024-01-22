@@ -4,14 +4,14 @@ from django import forms
 
 
 class UserRegisterForm(UserCreationForm):
-
+    """Форма для регистрации"""
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
 
 
 class UserProfileForm(UserChangeForm):
-
+    """Форма для профиля пользователя"""
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'phone', 'avatar',)
