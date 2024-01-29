@@ -17,6 +17,7 @@ class Product(models.Model):
     product_date_of_change = models.DateField(verbose_name='Дата изменения')
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL,
                                null=True, blank=True, verbose_name='Кем создан')
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     def __str__(self):
         return f'{self.product_name}'

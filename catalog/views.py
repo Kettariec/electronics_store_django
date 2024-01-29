@@ -8,6 +8,8 @@ from catalog.forms import ProductForm, VersionForm
 from django.forms import inlineformset_factory
 from users.service import check_user
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+# @login_required - для закрытия контроллера логином, для классов LoginRequiredMixin
 
 
 class ProductListView(ListView):
@@ -67,7 +69,7 @@ class ProductDetailView(DetailView):
 # В шаблоне нужно убрать цикл и закрывающий тег, а object_list на object
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     """Контроллер страницы добавления товара от пользователя"""
     model = Product
     form_class = ProductForm
