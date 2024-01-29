@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 # @login_required - для закрытия контроллера логином, для классов LoginRequiredMixin
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     """Контроллер главной страницы"""
     model = Product
     template_name = 'catalog/home.html'
@@ -32,6 +32,7 @@ class ProductListView(ListView):
 #     return render(request, 'catalog/home.html', context)
 
 
+@login_required
 def contacts(request):
     """Контроллер страницы контактов"""
     if request.method == 'POST':
@@ -53,7 +54,7 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     """Контроллер страницы товара"""
     model = Product
     template_name = 'catalog/product_card.html'
@@ -86,7 +87,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UserPassesTestMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """Контроллер страницы редактирования товара"""
     model = Product
     form_class = ProductForm
@@ -123,7 +124,7 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductDeleteView(UserPassesTestMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
 
