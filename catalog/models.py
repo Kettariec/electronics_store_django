@@ -36,6 +36,13 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
         ordering = ('product_name',)
 
+        permissions = [
+            (
+                'set_is_published',
+                'Can publish product'
+            ),
+        ]
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, verbose_name='Категория')
