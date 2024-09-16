@@ -28,21 +28,9 @@ requirements.txt - список зависимостей для проекта.
 Для запуска web-приложения используйте команду "python manage.py runserver" либо через конфигурационные настройки PyCharm.
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-
 <!-- CONTACT -->
 ## Contact
 
 kettariec@gmail.com
 
-https://github.com/Kettariec/django_project
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
+https://github.com/Kettariec/electronics_store_django
